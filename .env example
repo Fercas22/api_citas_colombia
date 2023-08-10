@@ -1,0 +1,14 @@
+## VARIABLES DE MYSQL
+
+HOST_DB         = database-citas.ce1v6gl8zd8l.us-east-2.rds.amazonaws.com
+USER_DB         = admin
+PASS_DB         = Esp22Tru$.
+NAME_DB         = citas_chat
+
+JWT_SECRET      = secreto
+
+ACCESS_KEY_AWS  = AKIAXZIYIXBPFHP3TFXU
+SECRET_KEY_AWS  = 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
+BUCKET_NAME_AWS = bucket-citas-web
+REGION_AWS      = us-east-2
+URL_BUCKET_AWS  = https://bucket-citas-web.s3.amazonaws.com/

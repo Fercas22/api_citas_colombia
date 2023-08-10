@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Prueba Images</title>
+</head>
+<body>
+
+    <main class="container mt-3">
+        <h1 class="display-1">Sube tus imagenes</h1>
+        <form action="http://localhost:8080/api/upload/uploadImages?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjg3MzEzNjY0LCJleHAiOjE2OTUwODk2NjR9.q-888zTXx0I4j82c_jDCvJdiRBT2aRwj_cqVc4BfC58" 
+        method="post" 
+        enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="file" multiple name="images" id="images" class="form-control">
+            </div>
+            <button class="btn btn-outline-primary">Subir imagenes</button>
+        </form>
+    </main>
+
+
+    <script>
+        images.addEventListener('blur', () => {
+            console.log(images.files)
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
