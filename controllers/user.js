@@ -22,7 +22,7 @@ const successOk = {
 
 // Peticion de prueba
 controller.index = (req, res) => {
-    res.send('API de Citas');
+    res.send('Servicio corriendo con éxito');
 };
 
 //diferentes filtros
