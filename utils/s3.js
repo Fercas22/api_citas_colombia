@@ -6,12 +6,13 @@ const s3Client = new S3Client({
     credentials:{
         accessKeyId: process.env.ACCESS_KEY_AWS,
         secretAccessKey: process.env.SECRET_KEY_AWS
-    }
+    },region: process.env.REGION_AWS
 })
 
 const S3 = {}
 
 S3.putObject = async (name, file, cb) => {
+
     const params = {
         Bucket : process.env.BUCKET_NAME_AWS,
         Key : name,
@@ -20,30 +21,43 @@ S3.putObject = async (name, file, cb) => {
 
     try{
         const command = new PutObjectCommand(params)
-        const response = await s3Client.send()
+        const response = await s3Client.send(command)
 
         const location = response.Location
 
         cb(null, location)
+
     }catch(err){
+
         cb(err, null)
+    
     }
 }
 
 S3.deleteObject = async (name, cb) => {
+
     const params = {
+    
         Bucket: process.env.BUCKET_NAME_AWS,
+    
         Key: name
+    
     }
 
     try{
+    
         const command = new DeleteObjectsCommand(params)
+        
         const response = await s3Client.send(command)
 
         cb(null,response)
+
         console.log(`Delete complete: ${name}`)
+    
     }catch(err){
+    
         cb(err,null)
+    
     }
 }
 

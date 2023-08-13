@@ -12,7 +12,4 @@ router.post('/logout', middleware.verify, login.logout);
 // Registrar usuario
 router.post('/registeruser', middleware.verifyEmail, login.register);
 
-// subir foto de perfil
-// router.post('/uploadphoto')
-
 module.exports = router;

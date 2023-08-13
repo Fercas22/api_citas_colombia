@@ -27,7 +27,13 @@ app.use('/api', router);
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
-});
+})
+
+const arr = ["img1", "img2"]
+
+const arrstr = arr.join(",")
+
+console.log(arrstr)
 
 //NOTE SERVIDOR
 app.listen(port, () => { console.log(`API funcionando en el puerto ${port}`) });

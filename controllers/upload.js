@@ -56,40 +56,65 @@ controllers.delete = (req,res) => {
 
 //subir varias imagenes
 controllers.uploadImages = (req,res) => {
+
     console.log('entro a upload images')
+    
     const {token} = req.query
+    
     const decode = jwt.decode(token, process.env.SECRET_JWT)
+    
     db.query(`SELECT * FROM view_users WHERE id = ${decode.id}`, (err,results) => {
+    
         if(err) {
+    
             res.status(500).json({statusCode: 200, info: 'internal err'})
+    
         }else{
 
             const userData = results[0]
 
             const file = req.files.images
-            
-            const images = file.map((file, i) => {
+
+            const arrimages = []
+
+            if (Array.isArray(file)) {
+                // Cuando hay varias imágenes
+                arrimages = file.map((file, i) => {
+                    const fileSplit = file.name.split('.')
+                    const ext = fileSplit[fileSplit.length - 1]
+                    const name = utils.generateName(i, userData)
+                    const nameFinal = `${name}.${ext}`
+
+                    putObject(nameFinal, file.data, (err, result) => {
+                        if (err) throw err
+                        console.log(result)
+                    })
+
+                    return nameFinal
+                })
                 
-                // generar el nombre con la extensión
+            } else {
+                // Cuando hay solo una imagen
                 const fileSplit = file.name.split('.')
                 const ext = fileSplit[fileSplit.length - 1]
-                const name = utils.generateName(i, userData)
+                const name = utils.generateName(0, userData)
                 const nameFinal = `${name}.${ext}`
 
-                //subir a s3 bucket cada imagen
                 putObject(nameFinal, file.data, (err, result) => {
-                    if(err) throw err
-                    console.log(result)
+                    if (err) throw err
+                    console.log("Put Object: ",result)
                 })
 
-                return nameFinal
-            })
+                arrimages.push(nameFinal)
+            }
+
+            const images = arrimages
 
             const nameImagesString = images.join(',')
 
             db.query(`UPDATE users SET images = "${nameImagesString}" WHERE id = ${decode.id}`, (err,results) => {
                 if (err) throw err
-                console.log(results)
+                console.log("Update db: ", results)
             })
 
             res.status(200).json({
