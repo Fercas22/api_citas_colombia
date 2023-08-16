@@ -11,11 +11,11 @@ require('./database/db');
 const { router } = require('./routes');
 
 //TODO Configuraciones
+const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
+
 const app = express();
 const port = process.env.PORT || 8080;
-app.use(cors({
-    origin: 'https://main.dgg5xgiq7zxjo.amplifyapp.com/'
-}));
+app.use(cors({}));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.urlencoded({extended:true}));
@@ -29,11 +29,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 })
 
-const arr = ["img1", "img2"]
 
-const arrstr = arr.join(",")
-
-console.log(arrstr)
 
 //NOTE SERVIDOR
 app.listen(port, () => { console.log(`API funcionando en el puerto ${port}`) });
