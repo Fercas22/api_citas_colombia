@@ -14,7 +14,7 @@ const { router } = require('./routes');
 const app = express();
 const port = process.env.PORT || 8080;
 app.use(cors({
-    origin: '*'
+    origin: 'https://main.dgg5xgiq7zxjo.amplifyapp.com/'
 }));
 app.use(cookieParser());
 app.use(fileUpload())
