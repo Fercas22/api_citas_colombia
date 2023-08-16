@@ -27,6 +27,8 @@ utils.generateArrayImages = (objectList) => {
             })
             
             image = arrayImagesURL
+        }else{
+            image = [];
         }
 
         obj.images = image

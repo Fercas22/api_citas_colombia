@@ -113,10 +113,7 @@ controller.showUser = (req,res) => {
         }
         const user = users[0]
 
-        // console.log(user.imae)
-        // res.send(user.images)
-        
-        const images = (user.images == null) ? null : user.images.split(',');
+        const images = (user.images == null) ? [] : user.images.split(',');
 
         if(images == null){
             user.images = images
