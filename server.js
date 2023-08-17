@@ -15,7 +15,7 @@ const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
 
 const app = express();
 const port = process.env.PORT || 8080;
-app.use(cors({}));
+app.use(cors({whiteList}));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.urlencoded({extended:true}));
