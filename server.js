@@ -6,16 +6,26 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const fileUpload = require('express-fileupload')
 
+// TODO Configuracion de CORS
+const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
+const optionsCors = {
+    origin: 'https://main.dgg5xgiq7zxjo.amplifyapp.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Content-Type,Authorization',
+};
+app.use(cors(optionsCors));
+app.options("*", cors(optionsCors));
+
 //TODO Importaciones Locales
 require('./database/db');
 const { router } = require('./routes');
 
 //TODO Configuraciones
-const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
 
 const app = express();
 const port = process.env.PORT || 8080;
-app.use(cors({whiteList}));
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.urlencoded({extended:true}));
