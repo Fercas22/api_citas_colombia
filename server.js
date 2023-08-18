@@ -9,7 +9,7 @@ const fileUpload = require('express-fileupload')
 // TODO Configuracion de CORS
 // const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
 const corsOptions = {
-  origin: 'https://main.dgg5xgiq7zxjo.amplifyapp.com',
+  origin: ['https://main.dgg5xgiq7zxjo.amplifyapp.com', "https://form.danidevs.com", "https://danidevs.com"],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization',
 };
