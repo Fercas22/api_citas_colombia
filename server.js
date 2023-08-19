@@ -14,6 +14,7 @@ const corsOptions = {
   allowedHeaders: 'Content-Type,Authorization',
 };
 
+const app = express();
 app.use(cors(corsOptions));
 
 //TODO Importaciones Locales
@@ -22,7 +23,6 @@ const { router } = require('./routes');
 
 //TODO Configuraciones
 
-const app = express();
 const port = process.env.PORT || 8080;
 app.use(cookieParser());
 app.use(fileUpload())
