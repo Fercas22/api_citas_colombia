@@ -15,7 +15,8 @@ const corsOptions = {
 };
 
 const app = express();
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 //TODO Importaciones Locales
 require('./database/db');

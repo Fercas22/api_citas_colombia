@@ -22,6 +22,7 @@ const successOk = {
 
 // Iniciar sesion
 controller.login = (req,res) => {
+    console.log('Entramos a incciar sesion');
     const {mail,password} = req.body;
     db.query(`SELECT * FROM users WHERE mail = "${mail}"`, (err,results) => {
         if (err) {
@@ -57,6 +58,7 @@ controller.login = (req,res) => {
                 id: payload.id,
                 token: token
             }
+            console.log('Inicaimos con exito');
 
             res.cookie('auth',`${token}`).status(200).json(request);
         });
