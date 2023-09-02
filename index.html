@@ -10,16 +10,15 @@
 
     <main class="container mt-3">
         <h1 class="display-1">Sube tus imagenes</h1>
-        <form action="http://localhost:8080/api/upload/uploadImages?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjg3MzEzNjY0LCJleHAiOjE2OTUwODk2NjR9.q-888zTXx0I4j82c_jDCvJdiRBT2aRwj_cqVc4BfC58" 
+        <form action="http://localhost:8080/api/upload/uploadImages?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkzNjc3ODA3LCJleHAiOjE3MDE0NTM4MDd9.6Kf4VZRkNfkcFEcS49RGXrGGF4U0jAbdlUZdvITtTEs" 
         method="post" 
         enctype="multipart/form-data">
             <div class="mb-3">
-                <input type="file" multiple name="images" id="images" class="form-control">
+                <input type="file" multiple name="images[]" id="images" class="form-control">
             </div>
             <button class="btn btn-outline-primary">Subir imagenes</button>
         </form>
     </main>
-
 
     <script>
         images.addEventListener('blur', () => {

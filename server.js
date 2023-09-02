@@ -6,16 +6,6 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const fileUpload = require('express-fileupload')
 
-// TODO Configuracion de CORS
-// const whiteList = ['https://main.dgg5xgiq7zxjo.amplifyapp.com/']
-const corsOptions = {
-  origin: ['https://main.dgg5xgiq7zxjo.amplifyapp.com', "https://form.danidevs.com", "https://danidevs.com"],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type,Authorization',
-};
-
-app.use(cors(corsOptions));
-
 //TODO Importaciones Locales
 require('./database/db');
 const { router } = require('./routes');
@@ -24,6 +14,7 @@ const { router } = require('./routes');
 
 const app = express();
 const port = process.env.PORT || 8080;
+app.use(cors());
 app.use(cookieParser());
 app.use(fileUpload())
 app.use(express.urlencoded({extended:true}));

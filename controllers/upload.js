@@ -54,77 +54,87 @@ controllers.delete = (req,res) => {
 }
 
 
+
 //subir varias imagenes
-controllers.uploadImages = (req,res) => {
+// controllers.uploadImages = (req,res) => {
 
-    console.log('entro a upload images')
+//     console.log('entro a upload images')
     
-    const {token} = req.query
+//     const {token} = req.query
     
-    const decode = jwt.decode(token, process.env.SECRET_JWT)
+//     const decode = jwt.decode(token, process.env.SECRET_JWT)
     
-    db.query(`SELECT * FROM view_users WHERE id = ${decode.id}`, (err,results) => {
+//     db.query(`SELECT * FROM view_users WHERE id = ${decode.id}`, (err,results) => {
     
-        if(err) {
+//         if(err) {
     
-            res.status(500).json({statusCode: 200, info: 'internal err'})
+//             res.status(500).json({statusCode: 200, info: 'internal err'})
     
-        }else{
+//         }else{
 
-            const userData = results[0]
+//             const userData = results[0]
 
-            const file = req.files.images
+//             const file = req.files.images
 
-            const arrimages = []
+//             const arrimages = []
 
-            if (Array.isArray(file)) {
-                // Cuando hay varias imágenes
-                arrimages = file.map((file, i) => {
-                    const fileSplit = file.name.split('.')
-                    const ext = fileSplit[fileSplit.length - 1]
-                    const name = utils.generateName(i, userData)
-                    const nameFinal = `${name}.${ext}`
+//             if (Array.isArray(file)) {
+//                 // Cuando hay varias imágenes
+//                 arrimages = file.map((file, i) => {
+//                     const fileSplit = file.name.split('.')
+//                     const ext = fileSplit[fileSplit.length - 1]
+//                     const name = utils.generateName(i, userData)
+//                     const nameFinal = `${name}.${ext}`
 
-                    putObject(nameFinal, file.data, (err, result) => {
-                        if (err) throw err
-                        console.log(result)
-                    })
+//                     putObject(nameFinal, file.data, (err, result) => {
+//                         if (err) throw err
+//                         console.log(result)
+//                     })
 
-                    return nameFinal
-                })
+//                     return nameFinal
+//                 })
                 
-            } else {
-                // Cuando hay solo una imagen
-                const fileSplit = file.name.split('.')
-                const ext = fileSplit[fileSplit.length - 1]
-                const name = utils.generateName(0, userData)
-                const nameFinal = `${name}.${ext}`
+//             } else {
+//                 // Cuando hay solo una imagen
+//                 const fileSplit = file.name.split('.')
+//                 const ext = fileSplit[fileSplit.length - 1]
+//                 const name = utils.generateName(0, userData)
+//                 const nameFinal = `${name}.${ext}`
 
-                putObject(nameFinal, file.data, (err, result) => {
-                    if (err) throw err
-                    console.log("Put Object: ",result)
-                })
+//                 putObject(nameFinal, file.data, (err, result) => {
+//                     if (err) throw err
+//                     console.log("Put Object: ",result)
+//                 })
 
-                arrimages.push(nameFinal)
-            }
+//                 arrimages.push(nameFinal)
+//             }
 
-            const images = arrimages
+//             const images = arrimages
 
-            const nameImagesString = images.join(',')
+//             const nameImagesString = images.join(',')
 
-            db.query(`UPDATE users SET images = "${nameImagesString}" WHERE id = ${decode.id}`, (err,results) => {
-                if (err) throw err
-                console.log("Update db: ", results)
-            })
+//             db.query(`UPDATE users SET images = "${nameImagesString}" WHERE id = ${decode.id}`, (err,results) => {
+//                 if (err) throw err
+//                 console.log("Update db: ", results)
+//             })
 
-            res.status(200).json({
-                statusCode :    200,
-                info:           'success',
-                urlbase:        process.env.URL_BUCKET_AWS,
-                array:          images,
-            })
-        }
-    })
+//             res.status(200).json({
+//                 statusCode :    200,
+//                 info:           'success',
+//                 urlbase:        process.env.URL_BUCKET_AWS,
+//                 array:          images,
+//             })
+//         }
+//     })
+// }
+
+
+//ANCHOR Implementacion con firebase
+const {storage, uploadFiles} = require('../utils/firebase')
+
+controllers.uploadImages = async(req,res) => {
+    // console.log(req.files)
+    const URLsdeDescarga = await uploadFiles(req.files);
 }
 
 
